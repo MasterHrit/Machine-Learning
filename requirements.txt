@@ -13,3 +13,4 @@ imblearn
 openpyxl
 statsmodels
 flask
+gunicorn
