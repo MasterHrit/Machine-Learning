@@ -1,108 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FWI Prediction</title>
+    <title>Algerian Forest Fire Prediction</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        body{
+            background:#030102;
+            color:white;
+            overflow-x:hidden;
         }
 
-        .container {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            width: 420px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        /* HERO SECTION */
+        .hero{
+            position:relative;
+            width:100%;
+            height:60vh;
+            overflow:hidden;
         }
 
-        .container h1 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
+        .hero img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            filter:brightness(45%);
         }
 
-        .input-group {
-            margin-bottom: 15px;
+        .hero-content{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            text-align:center;
+            width:90%;
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
+        .hero-content h1{
+            font-size:3rem;
+            color:#ff6b35;
+            margin-bottom:10px;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            outline: none;
-            transition: 0.3s;
-            font-size: 14px;
+        .hero-content p{
+            font-size:1.1rem;
+            color:#d3d3d3;
         }
 
-        .input-group input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+        /* FORM SECTION */
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+            margin-top:-70px;
+            position:relative;
+            z-index:10;
         }
 
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: #667eea;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+        .form-card{
+            background:#111;
+            border-radius:20px;
+            padding:40px;
+            box-shadow:0px 0px 35px rgba(255,107,53,0.2);
+            border:1px solid rgba(255,107,53,0.2);
         }
 
-        .btn:hover {
-            background: #5a67d8;
+        .form-title{
+            text-align:center;
+            color:#ff6b35;
+            font-size:2rem;
+            margin-bottom:30px;
         }
 
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            background: #f3f4f6;
-            text-align: center;
-            border-left: 5px solid #667eea;
+        .form-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
         }
 
-        .result-box h2 {
-            color: #333;
-            font-size: 20px;
+        .input-group{
+            display:flex;
+            flex-direction:column;
         }
 
-        .prediction {
-            color: #667eea;
-            font-size: 24px;
-            font-weight: bold;
+        label{
+            margin-bottom:8px;
+            color:#d1d1d1;
+            font-weight:500;
         }
 
-        @media(max-width: 450px) {
-            .container {
-                width: 90%;
-                padding: 25px;
+        input, select{
+            padding:14px;
+            border:none;
+            border-radius:12px;
+            background:#1d1d1d;
+            color:white;
+            outline:none;
+            border:1px solid #333;
+            transition:0.3s;
+        }
+
+        input:focus, select:focus{
+            border-color:#ff6b35;
+            box-shadow:0px 0px 12px rgba(255,107,53,0.3);
+        }
+
+        .btn-container{
+            display:flex;
+            justify-content:center;
+            margin-top:30px;
+        }
+
+        .predict-btn{
+            background:#ff6b35;
+            color:white;
+            border:none;
+            padding:15px 40px;
+            font-size:1rem;
+            border-radius:12px;
+            cursor:pointer;
+            transition:0.3s ease;
+        }
+
+        .predict-btn:hover{
+            background:#ff8c5a;
+            transform:translateY(-2px);
+        }
+
+        /* RESULT */
+        .result-box{
+            margin-top:30px;
+            background:#181818;
+            border-left:5px solid #ff6b35;
+            padding:20px;
+            border-radius:12px;
+            text-align:center;
+        }
+
+        .result-box h2{
+            color:#ff6b35;
+            margin-bottom:10px;
+        }
+
+        .prediction{
+            font-size:2rem;
+            font-weight:bold;
+        }
+
+        /* INFO SECTION */
+        .info-section{
+            width:90%;
+            max-width:1200px;
+            margin:60px auto;
+        }
+
+        .section-title{
+            text-align:center;
+            color:#ff6b35;
+            font-size:2rem;
+            margin-bottom:30px;
+        }
+
+        .card-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:20px;
+        }
+
+        .info-card{
+            background:#111;
+            padding:25px;
+            border-radius:16px;
+            border:1px solid rgba(255,107,53,0.15);
+            transition:0.3s;
+        }
+
+        .info-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0px 0px 20px rgba(255,107,53,0.2);
+        }
+
+        .info-card h3{
+            color:#ff6b35;
+            margin-bottom:12px;
+        }
+
+        .info-card p{
+            color:#cfcfcf;
+            line-height:1.6;
+        }
+
+        .dataset-info{
+            background:#111;
+            padding:30px;
+            border-radius:16px;
+            line-height:1.8;
+            color:#d1d1d1;
+            border:1px solid rgba(255,107,53,0.15);
+        }
+
+        footer{
+            text-align:center;
+            padding:20px;
+            color:#888;
+        }
+
+        @media(max-width:768px){
+            .hero-content h1{
+                font-size:2rem;
+            }
+
+            .form-card{
+                padding:25px;
             }
         }
     </style>
@@ -110,99 +226,187 @@
 
 <body>
 
-    <div class="container">
-        <h1>🔥 FWI Prediction</h1>
+    <!-- HERO -->
+    <section class="hero">
+        <img src="{{ url_for('static', filename='forest_fires_image.jpg') }}" alt="Forest Fire">
 
-        <form action="{{ url_for('predict_datapoint') }}" method="post">
-
-            <div class="input-group">
-                <label>Temperature</label>
-                <input type="text" name="Temperature"
-                    placeholder="Enter Temperature"
-                    value="{{ request.form.get('Temperature', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>RH</label>
-                <input type="text" name="RH"
-                    placeholder="Enter Relative Humidity"
-                    value="{{ request.form.get('RH', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>Ws</label>
-                <input type="text" name="Ws"
-                    placeholder="Enter Wind Speed"
-                    value="{{ request.form.get('Ws', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>Rain</label>
-                <input type="text" name="Rain"
-                    placeholder="Enter Rain Value"
-                    value="{{ request.form.get('Rain', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>FFMC</label>
-                <input type="text" name="FFMC"
-                    placeholder="Enter FFMC"
-                    value="{{ request.form.get('FFMC', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>DMC</label>
-                <input type="text" name="DMC"
-                    placeholder="Enter DMC"
-                    value="{{ request.form.get('DMC', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>ISI</label>
-                <input type="text" name="ISI"
-                    placeholder="Enter ISI"
-                    value="{{ request.form.get('ISI', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>Classes</label>
-                <input type="text" name="Classes"
-                    placeholder="Enter Class"
-                    value="{{ request.form.get('Classes', '') }}"
-                    required>
-            </div>
-
-            <div class="input-group">
-                <label>Region</label>
-                <input type="text" name="Region"
-                    placeholder="Enter Region"
-                    value="{{ request.form.get('Region', '') }}"
-                    required>
-            </div>
-
-            <button type="submit" class="btn">
-                Predict FWI
-            </button>
-
-        </form>
-
-        <!-- Show result only after prediction -->
-        {% if result %}
-        <div class="result-box">
-            <h2>Predicted FWI:</h2>
-            <p class="prediction">{{ result }}</p>
+        <div class="hero-content">
+            <h1>Algerian Forest Fire Weather Index Prediction</h1>
+            <p>Predict Forest Fire Risk using Meteorological Data and FWI System Indicators</p>
         </div>
-        {% endif %}
+    </section>
 
+    <!-- FORM -->
+    <div class="container">
+        <div class="form-card">
+
+            <h2 class="form-title">FWI Prediction Form</h2>
+
+            <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Max Noon Temperature (in °C)</label>
+                        <input type="number" step="any" name="Temperature"
+                            value="{{ request.form.get('Temperature', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Relative Humidity (in %)</label>
+                        <input type="number" step="any" name="RH"
+                            value="{{ request.form.get('RH', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Wind Speed (in km/h)</label>
+                        <input type="number" step="any" name="Ws"
+                            value="{{ request.form.get('Ws', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Rainfall (in mm)</label>
+                        <input type="number" step="any" name="Rain"
+                            value="{{ request.form.get('Rain', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Fine Fuel Moisture Code (FFMC)</label>
+                        <input type="number" step="any" name="FFMC"
+                            value="{{ request.form.get('FFMC', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Duff Moisture Code (DMC)</label>
+                        <input type="number" step="any" name="DMC"
+                            value="{{ request.form.get('DMC', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Initial Spread Index (ISI)</label>
+                        <input type="number" step="any" name="ISI"
+                            value="{{ request.form.get('ISI', '') }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Class</label>
+                        <select name="Classes" required>
+                            <option value="">Select</option>
+                            <option value="0">0 - Not Fire</option>
+                            <option value="1">1 - Fire</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Region</label>
+                        <select name="Region" required>
+                            <option value="">Select</option>
+                            <option value="0">0 - Bejaia Region</option>
+                            <option value="1">1 - Sidi Bel-Abbes Region</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="predict-btn">
+                        Predict Fire Weather Index
+                    </button>
+                </div>
+            </form>
+
+            {% if result %}
+            <div class="result-box">
+                <h2>Predicted Fire Weather Index (FWI)</h2>
+                <p class="prediction">{{ result }}</p>
+            </div>
+            {% endif %}
+
+        </div>
     </div>
 
-</body>
+    <!-- ATTRIBUTE INFO -->
+    <section class="info-section">
+        <h2 class="section-title">Attribute Information</h2>
 
+        <div class="card-grid">
+
+            <div class="info-card">
+                <h3>Temperature</h3>
+                <p>Temperature measured at noon (maximum temperature) in Celsius: <strong>22 to 42°C</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>Relative Humidity (RH)</h3>
+                <p>Relative humidity percentage range: <strong>21 to 90%</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>Wind Speed (Ws)</h3>
+                <p>Wind speed measured in km/h: <strong>6 to 29 km/h</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>Rain</h3>
+                <p>Total rainfall measured in mm: <strong>0 to 16.8 mm</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>FFMC</h3>
+                <p>Fine Fuel Moisture Code index range: <strong>28.6 to 92.5</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>DMC</h3>
+                <p>Duff Moisture Code index range: <strong>1.1 to 65.9</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>ISI</h3>
+                <p>Initial Spread Index range: <strong>0 to 18.5</strong></p>
+            </div>
+
+            <div class="info-card">
+                <h3>FWI</h3>
+                <p>Fire Weather Index range: <strong>0 to 31.1</strong></p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DATASET INFO -->
+    <section class="info-section">
+        <h2 class="section-title">Dataset Information</h2>
+
+        <div class="dataset-info">
+            <p>
+                This dataset contains meteorological and fire weather data from 
+                <strong>two regions of Algeria</strong>.
+            </p>
+
+            <br>
+
+            <p>
+                <strong>Bejaia Region</strong> — Located in the 
+                <strong>NorthEast Algeria</strong>.
+            </p>
+
+            <p>
+                <strong>Sidi Bel-Abbes Region</strong> — Located in the 
+                <strong>NorthWest Algeria</strong>.
+            </p>
+
+            <br>
+            <p>
+                <strong>Current Prediction Accuracy : 98.43%</strong>
+            </p>
+
+        </div>
+    </section>
+
+    <footer>
+        Algerian Forest Fire Prediction System
+    </footer>
+
+</body>
 </html>

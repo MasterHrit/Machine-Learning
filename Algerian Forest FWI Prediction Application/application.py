@@ -29,7 +29,7 @@ def predict_datapoint():
         Region=float(request.form.get("Region"))
         new_data_scaled=standard_scaler.transform(np.array([Temperature,RH,Ws,Rain,FFMC,DMC,ISI,Classes,Region]).reshape(1,-1))
         result=ridge_model.predict(new_data_scaled)
-        return render_template("home.html",result=result[0])
+        return render_template("home.html",result=round(result[0],2))
     else:
         return render_template("home.html")
 if(__name__=="__main__"):
