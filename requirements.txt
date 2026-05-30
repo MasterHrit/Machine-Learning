@@ -12,3 +12,4 @@ scikit-learn
 imblearn
 openpyxl
 statsmodels
+flask
