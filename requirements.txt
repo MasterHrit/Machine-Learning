@@ -17,3 +17,4 @@ gunicorn
 plotly
 nbformat
 kagglehub
+xgboost
